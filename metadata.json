@@ -1,0 +1,14 @@
+{
+    "name": "octoenergy-octo_base",
+    "version": "1.0",
+    "author": "Octopus Energy",
+    "license": "BSD",
+    "summary": "Base machine functionality for Octopus Energy",
+    "source": "https://github.com/octoenergy/puppet-octo_base",
+    "dependencies": [
+        {
+            "name": "puppetlabs-ntp",
+            "version_requirement": "4.1.0"
+        }
+    ]
+}
