@@ -6,10 +6,7 @@ class octo_base (
         fail("A valid AWSCLI version must be set") 
     }
 
-    # All servers should have NTP running
-    include "::ntp"
-
-    # Upgrade all installed packages
+    # Upgrade all installed packages...
     exec { "update apt repositories":
         command => "/usr/bin/apt-get update",
     }
@@ -17,6 +14,12 @@ class octo_base (
         command => "/usr/bin/apt-get -y upgrade", 
         require => Exec["update apt repositories"],
     }
+
+    # ...and set-up unattended upgrades
+    include unattended_upgrades
+
+    # All servers should have NTP running
+    include "::ntp"
 
     # Install AWSCLI. This is needed by Cloudwatch monitoring scripts and also
     # for initialisation code that runs in EC2 userdata. It's simpler to just

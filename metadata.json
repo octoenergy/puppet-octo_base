@@ -9,6 +9,10 @@
         {
             "name": "puppetlabs-ntp",
             "version_requirement": "4.1.0"
+        },
+        {
+            "name": "puppet-unattended_upgrades",
+            "version_requirement": "2.2.0"
         }
     ]
 }
