@@ -13,6 +13,10 @@
         {
             "name": "puppet-unattended_upgrades",
             "version_requirement": "2.2.0"
+        },
+        {
+            "name": "maestrodev-wget",
+            "version_requirement": "1.7.3"
         }
     ]
 }
