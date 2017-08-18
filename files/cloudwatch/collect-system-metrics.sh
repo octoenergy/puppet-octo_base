@@ -46,23 +46,24 @@ DISK_AVAILABLE=$(echo "$DISK_USAGE" | awk '{print $4}')
 # Push to cloudwatch
 # ------------------
 
+# CPU
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "CPUUtilization" --unit "Percent" --value $CPU --dimensions "InstanceName=$INSTANCE_NAME" --timestamp $TIMESTAMP
 
+# Load
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "SystemLoad" --value $LOAD --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "SystemLoad" --value $LOAD --dimensions "InstanceName=$INSTANCE_NAME" --timestamp $TIMESTAMP
 
+# Memory
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "MemoryUsed" --unit "Megabytes" --value $MEMORY_USED --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
-
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "MemoryUsedPercentage" --unit "Percent" --value $MEMORY_USED_PERCENTAGE --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "MemoryUsedPercentage" --unit "Percent" --value $MEMORY_USED_PERCENTAGE --dimensions "InstanceName=$INSTANCE_NAME" --timestamp $TIMESTAMP
-
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "MemoryFree" --unit "Megabytes" --value $MEMORY_FREE --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
 
+# Swap
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "SwapUsed" --unit "Megabytes" --value $SWAP_USED --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
 
+# Disk
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "DiskUsedPercentage" --unit "Percent" --value $DISK_USED_PERCENTAGE --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "DiskUsedPercentage" --unit "Percent" --value $DISK_USED_PERCENTAGE --dimensions "InstanceName=$INSTANCE_NAME" --timestamp $TIMESTAMP
-
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "DiskUsed" --unit "Bytes" --value $DISK_USED --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
-
 $AWS_EXECUTABLE --region=$REGION cloudwatch put-metric-data --namespace $NAMESPACE --metric-name "DiskAvailable" --unit "Bytes" --value $DISK_AVAILABLE --dimensions "InstanceId=$INSTANCE_ID" --timestamp $TIMESTAMP
