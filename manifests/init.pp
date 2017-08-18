@@ -1,5 +1,5 @@
 class octo_base (
-    $awscli_version = "1.11.111",
+    $awscli_version = "1.11.136",
 ) {
     # Validate params
     if !$awscli_version {
