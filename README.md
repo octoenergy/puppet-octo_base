@@ -4,6 +4,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.3
+
+- Add locking to the system metrics file
+
 ### v1.2
 
 - AWSCLI version bump
