@@ -2,7 +2,19 @@
 #
 # Push custom metrics to Cloudwatch.
 # 
-# Note this script requires a /etc/aws/instance-name file
+# Note this script requires a /etc/aws/instance-name file which should be put in place with
+# userdata.
+
+set -e
+
+# Use a lockfile to prevent this script running in parallel processes (which can overload the server
+# if too many get started).
+LOCKFILE=/tmp/`basename "$0"`.lock
+lockfile-create --retry=0 --lock-name "$LOCKFILE"
+function remove_lock {
+    lockfile-remove --lock-name "$LOCKFILE"
+}
+trap remove_lock EXIT
 
 # When testing on a vagrant box, echo the cloudwatch commands instead of submitting them.
 if ! test -d "/vagrant"
@@ -43,7 +55,7 @@ DISK_USED_PERCENTAGE=$(echo "$DISK_USAGE" | awk '{print substr($5, 1, length($5 
 DISK_USED=$(echo "$DISK_USAGE" | awk '{print $3}')
 DISK_AVAILABLE=$(echo "$DISK_USAGE" | awk '{print $4}')
 
-# Push to cloudwatch
+# Push to Cloudwatch
 # ------------------
 
 # CPU
