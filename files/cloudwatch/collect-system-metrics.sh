@@ -5,7 +5,8 @@
 # Note this script requires a /etc/aws/instance-name file which should be put in place with
 # userdata.
 
-set -e
+set -eu -o pipefail
+exec 1> >(logger --stderr --tag $(basename $0)) 2>&1
 
 # Use a lockfile to prevent this script running in parallel processes (which can overload the server
 # if too many get started).
