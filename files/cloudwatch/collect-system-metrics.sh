@@ -42,10 +42,18 @@ LOAD=$(cut -d" " -f1 /proc/loadavg)
 # System CPU (=100 - IDLE)
 CPU=$(top -bn1 | grep "^%Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
 
-# Memory (ignored space used by buffers/cache)
+# Memory (ignoring space used by buffers/cache)
 MEMORY_STATS=$(free -m)
-MEMORY_USED=$(printf "$MEMORY_STATS" | awk '/+ buffers/ {print $3}')
-MEMORY_FREE=$(printf "$MEMORY_STATS" | awk '/+ buffers/ {print $4}')
+
+# The output of `free -m` changed between 14.04 and 16.04
+if [[ `lsb_release -rs` == "14.04" ]]
+then
+    MEMORY_USED=$(printf "$MEMORY_STATS" | awk '/+ buffers/ {print $3}')
+    MEMORY_FREE=$(printf "$MEMORY_STATS" | awk '/+ buffers/ {print $4}')
+else
+    MEMORY_USED=$(printf "$MEMORY_STATS" | awk '/Mem:/ {print $3}')
+    MEMORY_FREE=$(printf "$MEMORY_STATS" | awk '/Mem:/ {print $4}')
+fi
 MEMORY_USED_PERCENTAGE=$(echo "100*$MEMORY_USED/($MEMORY_FREE+$MEMORY_USED)" | bc -l)
 SWAP_USED=$(printf "$MEMORY_STATS" | awk '/Swap/ {print $3}')
 

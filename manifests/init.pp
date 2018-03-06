@@ -43,7 +43,7 @@ class octo_base (
         require => Exec["upgrade installed packages"],
     }
 
-    # Default EC2 monitoring - this requires an IAM role that allow putting new metrics
+    # Default EC2 monitoring - this requires an IAM role that allows putting new metrics
     class { "octo_base::cloudwatch::system": 
         require => Exec["install awscli"]
     }
