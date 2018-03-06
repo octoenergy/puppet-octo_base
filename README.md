@@ -4,6 +4,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.4
+
+- Extend system monitoring script to work in Ubuntu 16.04
+
 ### v1.3
 
 - Add locking to the system metrics file
