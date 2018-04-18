@@ -4,6 +4,11 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.5
+
+- Call `autoremove` after `update` and `upgrade`
+- Make `upgrade` call more robust using a timeout and retrying
+
 ### v1.4
 
 - Extend system monitoring script to work in Ubuntu 16.04
