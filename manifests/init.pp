@@ -10,9 +10,14 @@ class octo_base (
     exec { "update apt repositories":
         command => "/usr/bin/apt-get update",
     }
-    exec { "upgrade installed packages": 
-        command => "/usr/bin/apt-get -y upgrade", 
+    exec { "upgrade installed packages":
+        command => "/usr/bin/apt-get -y upgrade",
         require => Exec["update apt repositories"],
+        # Use a longer timeout as the default of 300 seconds fails more often than
+        # we would like.
+        timeout => 600,
+        # Try more than once
+        tries => 3,
     }
     exec { "remove unused packages":
         command => "/usr/bin/apt-get -y autoremove",
