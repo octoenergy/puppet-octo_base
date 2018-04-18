@@ -14,6 +14,10 @@ class octo_base (
         command => "/usr/bin/apt-get -y upgrade", 
         require => Exec["update apt repositories"],
     }
+    exec { "remove unused packages":
+        command => "/usr/bin/apt-get -y autoremove",
+        require => Exec["upgrade installed packages"],
+    }
 
     # ...and set-up unattended upgrades
     include unattended_upgrades
