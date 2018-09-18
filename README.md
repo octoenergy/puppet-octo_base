@@ -4,6 +4,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.6
+
+- Use `--fix-missing` when calling `apt-get upgrade`.
+
 ### v1.5
 
 - Call `autoremove` after `update` and `upgrade`
