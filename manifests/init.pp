@@ -16,7 +16,7 @@ class octo_base (
         logoutput => true,
     }
     exec { "upgrade installed packages":
-        command => "time -p /usr/bin/apt-get -y upgrade",
+        command => "time -p /usr/bin/apt-get -y upgrade --fix-missing",
         require => Exec["update apt repositories"],
         # Use a longer timeout as the default of 300 seconds fails more often than
         # we would like.
