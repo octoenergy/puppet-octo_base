@@ -13,7 +13,7 @@ class octo_base (
         # we would like.
         timeout => 600,
         tries => 3,
-        logoutput => true,
+        logoutput => on_failure,
     }
     exec { "upgrade installed packages":
         command => "time -p /usr/bin/apt-get -y upgrade --fix-missing --fix-broken",
@@ -22,7 +22,7 @@ class octo_base (
         # we would like.
         timeout => 600,
         tries => 3,
-        logoutput => true,
+        logoutput => on_failure,
     }
 
     # ...and set-up unattended upgrades
