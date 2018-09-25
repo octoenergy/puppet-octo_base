@@ -60,7 +60,7 @@ SWAP_USED=$(printf "$MEMORY_STATS" | awk '/Swap/ {print $3}')
 
 # Disk usage
 DISK_USAGE=$(df | grep "^/dev")
-DISK_USED_PERCENTAGE=$(echo "$DISK_USAGE" | awk '{print substr($5, 1, length($5 - 1))}')
+DISK_USED_PERCENTAGE=$(echo "$DISK_USAGE" | awk '{print substr($5, 1, length($5) - 1)}')
 DISK_USED=$(echo "$DISK_USAGE" | awk '{print $3}')
 DISK_AVAILABLE=$(echo "$DISK_USAGE" | awk '{print $4}')
 
