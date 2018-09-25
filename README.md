@@ -4,6 +4,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.8
+
+- Fix bug in metrics script around disk usage
+
 ### v1.7
 
 - Fix issue with `apt-get upgrade` returning a exit code of 100
