@@ -4,6 +4,11 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.9
+
+- Fix (another) bug in metrics script around disk usage
+- Install packages required for monitoring script in Ubuntu 16:04 and later
+
 ### v1.8
 
 - Fix bug in metrics script around disk usage
