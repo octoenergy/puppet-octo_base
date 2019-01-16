@@ -58,8 +58,8 @@ fi
 MEMORY_USED_PERCENTAGE=$(echo "100*$MEMORY_USED/($MEMORY_FREE+$MEMORY_USED)" | bc -l)
 SWAP_USED=$(printf "$MEMORY_STATS" | awk '/Swap/ {print $3}')
 
-# Disk usage
-DISK_USAGE=$(df | grep "^/dev")
+# Disk usage - take the df line mounted on /
+DISK_USAGE=$(df | grep " /$")
 DISK_USED_PERCENTAGE=$(echo "$DISK_USAGE" | awk '{print substr($5, 1, length($5) - 1)}')
 DISK_USED=$(echo "$DISK_USAGE" | awk '{print $3}')
 DISK_AVAILABLE=$(echo "$DISK_USAGE" | awk '{print $4}')
