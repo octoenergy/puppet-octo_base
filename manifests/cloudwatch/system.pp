@@ -1,5 +1,11 @@
 class octo_base::cloudwatch::system {
 
+    # Install system packages (needed by octo-base)
+    $system_packages = [ "lockfile-progs", "bc" ]
+    package { $system_packages:
+        ensure => "installed",
+    }
+
     # Run a script every minute that collects metrics missing from the default 
     # Cloudwatch EC2 group and submits them
     $script_path = "/usr/local/sbin/collect-system-metrics.sh"
