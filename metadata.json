@@ -8,11 +8,11 @@
     "dependencies": [
         {
             "name": "puppetlabs-ntp",
-            "version_requirement": "4.1.0"
+            "version_requirement": ">= 7.3.0"
         },
         {
             "name": "puppet-unattended_upgrades",
-            "version_requirement": "2.2.0"
+            "version_requirement": ">= 3.2.0"
         },
         {
             "name": "maestrodev-wget",
