@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.9.1
+
+- Use version ranges in dependencies
+
 ### v1.9
 
 - Fix (another) bug in metrics script around disk usage
