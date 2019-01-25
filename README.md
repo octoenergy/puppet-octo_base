@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.9.2
+
+- Use lower min versions in dependency version ranges
+
 ### v1.9.1
 
 - Use version ranges in dependencies
