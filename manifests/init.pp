@@ -8,7 +8,7 @@ class octo_base (
 
     # Wait for unattended upgrades to finish
     exec { "wait for apt lock":
-      command => "/bin/bash -c 'while sudo fuser /var/lib/dpkg/lock-frontend; do sleep 1; done'",
+      command => "/bin/bash -c 'while sudo fuser /var/lib/dpkg/lock-frontend; do sleep .1; done'",
     }
 
     # First uninstall unattended upgrades as this blocks other apt calls from working.
@@ -38,7 +38,9 @@ class octo_base (
     }
 
     # All servers should have NTP running
-    include "::ntp"
+    class { "::ntp":
+        require => Exec["update apt repositories"],
+    }
 
     # Install AWSCLI. This is needed by Cloudwatch monitoring scripts and also
     # for initialisation code that runs in EC2 userdata. It's simpler to just
