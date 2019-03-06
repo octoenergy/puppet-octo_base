@@ -3,30 +3,39 @@ class octo_base (
 ) {
     # Validate params
     if !$awscli_version {
-        fail("A valid AWSCLI version must be set") 
+        fail("A valid AWSCLI version must be set")
     }
 
-    # Upgrade all installed packages...
+    # Wait for unattended upgrades to finish
+    exec { "wait for apt lock":
+      command => "/bin/bash -c 'while sudo fuser /var/lib/dpkg/lock-frontend; do sleep 1; done'",
+    }
+
+    # First uninstall unattended upgrades as this blocks other apt calls from working.
+    package { "unattended-upgrades":
+      ensure  => "purged",
+      require => Exec["wait for apt lock"],
+    }
+
+    # ...then upgrade all installed packages...
     exec { "update apt repositories":
         command   => "time -p /usr/bin/apt-get update --fix-missing",
         # Use a longer timeout as the default of 300 seconds fails more often than
         # we would like.
-        timeout => 600,
-        tries => 3,
+        timeout   => 600,
+        tries     => 3,
         logoutput => on_failure,
+        require   => Package["unattended-upgrades"],
     }
     exec { "upgrade installed packages":
         command => "time -p /usr/bin/apt-get -y upgrade --fix-missing --fix-broken",
-        require => Exec["update apt repositories"],
         # Use a longer timeout as the default of 300 seconds fails more often than
         # we would like.
         timeout => 600,
         tries => 3,
         logoutput => on_failure,
+        require => Exec["update apt repositories"],
     }
-
-    # ...and set-up unattended upgrades
-    include unattended_upgrades
 
     # All servers should have NTP running
     include "::ntp"
@@ -54,7 +63,7 @@ class octo_base (
     }
 
     # Default EC2 monitoring - this requires an IAM role that allows putting new metrics
-    class { "octo_base::cloudwatch::system": 
+    class { "octo_base::cloudwatch::system":
         require => Exec["install awscli"]
     }
 }
