@@ -12,6 +12,11 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.10
+
+- Purge unattended updates at start (to allow other apt commands to not get
+  locked out).
+
 ### v1.9.2
 
 - Use lower min versions in dependency version ranges
