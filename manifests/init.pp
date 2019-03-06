@@ -6,18 +6,7 @@ class octo_base (
         fail("A valid AWSCLI version must be set")
     }
 
-    # Wait for unattended upgrades to finish
-    exec { "wait for apt lock":
-      command => "/bin/bash -c 'while sudo fuser /var/lib/dpkg/lock-frontend; do sleep .1; done'",
-    }
-
-    # First uninstall unattended upgrades as this blocks other apt calls from working.
-    package { "unattended-upgrades":
-      ensure  => "purged",
-      require => Exec["wait for apt lock"],
-    }
-
-    # ...then upgrade all installed packages...
+    # Upgrade all installed packages...
     exec { "update apt repositories":
         command   => "time -p /usr/bin/apt-get update --fix-missing",
         # Use a longer timeout as the default of 300 seconds fails more often than
@@ -25,7 +14,6 @@ class octo_base (
         timeout   => 600,
         tries     => 3,
         logoutput => on_failure,
-        require   => Package["unattended-upgrades"],
     }
     exec { "upgrade installed packages":
         command => "time -p /usr/bin/apt-get -y upgrade --fix-missing --fix-broken",
