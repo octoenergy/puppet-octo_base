@@ -6,18 +6,7 @@ class octo_base (
         fail("A valid AWSCLI version must be set")
     }
 
-    # Wait for unattended upgrades to finish
-    exec { "wait for apt lock":
-      command => "/bin/bash -c 'while sudo fuser /var/lib/dpkg/lock-frontend; do sleep 1; done'",
-    }
-
-    # First uninstall unattended upgrades as this blocks other apt calls from working.
-    package { "unattended-upgrades":
-      ensure  => "purged",
-      require => Exec["wait for apt lock"],
-    }
-
-    # ...then upgrade all installed packages...
+    # Update repos
     exec { "update apt repositories":
         command   => "time -p /usr/bin/apt-get update --fix-missing",
         # Use a longer timeout as the default of 300 seconds fails more often than
@@ -25,8 +14,23 @@ class octo_base (
         timeout   => 600,
         tries     => 3,
         logoutput => on_failure,
-        require   => Package["unattended-upgrades"],
     }
+
+    # Remove unnecessary packages for Ubuntu 18:04 (see https://peteris.rocks/blog/can-you-kill-it/)
+    $unnecessary_packages = [
+      "snapd",
+      "lvm2",
+      "lxcfs",
+      "accountsservice",
+      "at",
+      "policykit-1",
+    ]
+    package { $unnecessary_packages:
+      ensure  => "purged",
+      require => Exec["update apt repositories"],
+    }
+
+    # Apply security patches for installed packages
     exec { "upgrade installed packages":
         command => "time -p /usr/bin/apt-get -y upgrade --fix-missing --fix-broken",
         # Use a longer timeout as the default of 300 seconds fails more often than
@@ -34,18 +38,20 @@ class octo_base (
         timeout => 600,
         tries => 3,
         logoutput => on_failure,
-        require => Exec["update apt repositories"],
+        require => Package[$unnecessary_packages],
     }
 
     # All servers should have NTP running
-    include "::ntp"
+    class { "::ntp":
+      require => Exec["update apt repositories"]
+    }
 
     # Install AWSCLI. This is needed by Cloudwatch monitoring scripts and also
     # for initialisation code that runs in EC2 userdata. It's simpler to just
     # have it available on all EC2 machines.
     package { "python-pip":
         ensure => installed,
-        require => Exec["upgrade installed packages"],
+        require => Exec["update apt repositories"],
     }
     exec { "install awscli":
         command => "pip install 'awscli==$awscli_version'",
