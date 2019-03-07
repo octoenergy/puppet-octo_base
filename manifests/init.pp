@@ -1,5 +1,5 @@
 class octo_base (
-    $awscli_version = "1.11.136",
+    $awscli_version = "1.16.119",
 ) {
     # Validate params
     if !$awscli_version {
@@ -46,20 +46,22 @@ class octo_base (
       require => Exec["update apt repositories"]
     }
 
-    # Install AWSCLI. This is needed by Cloudwatch monitoring scripts and also
-    # for initialisation code that runs in EC2 userdata. It's simpler to just
-    # have it available on all EC2 machines.
-    package { "python-pip":
+    # Install AWSCLI.
+    #
+    # This is needed by Cloudwatch monitoring scripts and also for
+    # initialisation code that runs in EC2 userdata. It's simpler to just have
+    # it available on all EC2 machines.
+    package { "python3-pip":
         ensure => installed,
         require => Exec["update apt repositories"],
     }
     exec { "install awscli":
-        command => "pip install 'awscli==$awscli_version'",
+        command => "pip3 install --system 'awscli==$awscli_version'",
         path => ["/bin/", "/sbin/", "/usr/bin/", "/usr/bin/local/"],
         user => "root",
         group => "root",
-        unless => "pip freeze | grep awscli",
-        require => Package["python-pip"],
+        unless => "pip3 freeze | grep awscli",
+        require => Package["python3-pip"],
     }
 
     # JQ is also used by monitoring scripts to extract data from JSON
