@@ -12,6 +12,11 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.11
+
+- Remove changes from 1.10 (found a better way to solve same problem)
+- Use Python 3 for `awscli`
+
 ### v1.10
 
 - Purge unattended updates at start (to allow other apt commands to not get
