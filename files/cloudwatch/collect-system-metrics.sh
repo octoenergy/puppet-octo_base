@@ -18,7 +18,7 @@ function remove_lock {
 trap remove_lock EXIT
 
 # When testing on a vagrant box, echo the cloudwatch commands instead of submitting them.
-if ! test -d "/vagrant"
+if ! test -d "/vagrant" && [ -z "${DEBUG+x}" ]
 then
     REGION=$(ec2metadata --availability-zone | awk '{print substr($1, 1, length($1) - 1)}')
     INSTANCE_ID=$(ec2metadata --instance-id)
@@ -46,14 +46,21 @@ CPU=$(top -bn1 | grep "^%Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{p
 # Memory (ignoring space used by buffers/cache)
 MEMORY_STATS=$(free -m)
 
-# The output of `free -m` changed between 14.04 and 16.04
-if [[ `lsb_release -rs` == "14.04" ]]
+# The output of `free -m` changes between Ubuntu releases
+UBUNTU_VERSION=`lsb_release -rs`
+if [[ "$UBUNTU_VERSION" == "14.04" ]]
 then
     MEMORY_USED=$(printf "$MEMORY_STATS" | awk '/+ buffers/ {print $3}')
     MEMORY_FREE=$(printf "$MEMORY_STATS" | awk '/+ buffers/ {print $4}')
-else
+elif [[ "$UBUNTU_VERSION" == "16.04" ]]
+then
     MEMORY_USED=$(printf "$MEMORY_STATS" | awk '/Mem:/ {print $3}')
     MEMORY_FREE=$(printf "$MEMORY_STATS" | awk '/Mem:/ {print $4}')
+else
+    # Assumed 18:04
+    MEMORY_USED=$(printf "$MEMORY_STATS" | awk '/Mem:/ {print $3}')
+    # Take free memory from the "available" column
+    MEMORY_FREE=$(printf "$MEMORY_STATS" | awk '/Mem:/ {print $7}')
 fi
 MEMORY_USED_PERCENTAGE=$(echo "100*$MEMORY_USED/($MEMORY_FREE+$MEMORY_USED)" | bc -l)
 SWAP_USED=$(printf "$MEMORY_STATS" | awk '/Swap/ {print $3}')
