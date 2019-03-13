@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.12
+
+- Correct memory calculations for Ubuntu 18.04 in metrics script
+
 ### v1.11
 
 - Remove changes from 1.10 (found a better way to solve same problem)
