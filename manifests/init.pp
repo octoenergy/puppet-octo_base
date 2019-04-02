@@ -19,6 +19,8 @@ class octo_base (
     # Remove unnecessary packages for Ubuntu 18:04 (see https://peteris.rocks/blog/can-you-kill-it/)
     $unnecessary_packages = [
       "snapd",
+      "ubuntu-core-launcher",
+      "squashfs-tools",
       "lvm2",
       "lxcfs",
       "accountsservice",
