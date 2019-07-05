@@ -43,7 +43,8 @@ class octo_base::cloudwatch::logs (
     # Install the agent using the bootstrap config file above (only works with Python 2.6-3.5)
     exec { "Install AWS cloudwatch agent":
         command => "/usr/bin/python $setup_script --region $region --non-interactive --configfile=$config_file",
-        creates => "/var/awslogs/etc/awslogs.conf",
+        # Only run when the config file content changes.
+        refreshonly => true,
         require => [
           File["AWS cloudwatch config"],
           Package["python"]
