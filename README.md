@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.13
+
+- Ensure AWS logs config updates correctly.
+
 ### v1.12
 
 - Correct memory calculations for Ubuntu 18.04 in metrics script
