@@ -12,9 +12,13 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.9.3
+
+- Fix bug with AWS logs config that prevent changes being picked up.
+
 ### v1.9.2
 
-- Use lower min versions in dependency version ranges
+- Use lower min versions in dependency version ranges.
 
 ### v1.9.1
 
