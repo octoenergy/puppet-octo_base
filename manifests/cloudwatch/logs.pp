@@ -23,7 +23,7 @@ class octo_base::cloudwatch::logs (
     wget::fetch { "Download AWS cloudwatch script":
         source => "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py",
         destination => $setup_script,
-        unless => "test -f /var/awslogs/bin/awslogs-nanny.sh",
+        unless => "test -f $setup_script",
     }
 
     # Create the bootstrapping config file (the $aws_logs var is iterated over in the template)
@@ -40,7 +40,7 @@ class octo_base::cloudwatch::logs (
         command => "/usr/bin/python $setup_script --region $region --non-interactive --configfile=$config_file",
         # Only run when the config file content changes.
         refreshonly => true,
-        require => File["AWS cloudwatch config"],
+        require     => File["AWS cloudwatch config"],
     }
 }
 
