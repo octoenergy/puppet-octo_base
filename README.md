@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.9.4
+
+- Fix bug with downloading the AWS logs file.
+
 ### v1.9.3
 
 - Fix bug with AWS logs config that prevent changes being picked up.
