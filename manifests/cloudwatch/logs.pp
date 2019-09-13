@@ -16,23 +16,22 @@ class octo_base::cloudwatch::logs (
     #   ]
 
     # Temporary files
-    $setup_script = "/tmp/awslogs-agent-setup.py"
-    $config_file = "/tmp/awslogs.conf"
-
-    # Fetch the set-up script from AWS
-    wget::fetch { "Download AWS cloudwatch script":
-        source => "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py",
-        destination => $setup_script,
-        unless => "test -f /var/awslogs/bin/awslogs-nanny.sh",
-    }
+    $setup_script = "/opt/awslogs-agent-setup.py"
+    $config_file = "/etc/awslogs.conf"
 
     # Create the bootstrapping config file (the $aws_logs var is iterated over in the template)
     file { "AWS cloudwatch config":
         path => $config_file,
         content => template("octo_base/cloudwatch/awslogs.conf"),
         mode => "0600",
-        require => Wget::Fetch["Download AWS cloudwatch script"],
         notify => Exec["Install AWS cloudwatch agent"],
+    }
+
+    # Fetch the set-up script from AWS
+    wget::fetch { "Download AWS cloudwatch script":
+        source => "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py",
+        destination => $setup_script,
+        unless => "test -f $setup_script",
     }
 
     # Ensure we have Python 2.7
@@ -46,6 +45,7 @@ class octo_base::cloudwatch::logs (
         # Only run when the config file content changes.
         refreshonly => true,
         require => [
+          Wget::Fetch["Download AWS cloudwatch script"],
           File["AWS cloudwatch config"],
           Package["python"]
         ]
