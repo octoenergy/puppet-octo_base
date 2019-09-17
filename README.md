@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.14
+
+- Ensure AWS logs nanny is not installed unnecessarily.
+
 ### v1.13
 
 - Ensure AWS logs config updates correctly.
