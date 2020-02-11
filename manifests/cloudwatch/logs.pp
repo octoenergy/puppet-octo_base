@@ -1,6 +1,6 @@
 class octo_base::cloudwatch::logs (
     $log_files,
-    $region = "eu-west-1"
+    $region
 ) {
     # Manifest to install the AWS logs agent
     # See http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CWL_GettingStarted.html
