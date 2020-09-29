@@ -74,4 +74,8 @@ class octo_base (
     class { "octo_base::cloudwatch::system":
         require => Exec["install awscli"]
     }
+
+    class {"octo_base::inspector::system":
+      require => Exec["update apt repositories"]
+    }
 }
