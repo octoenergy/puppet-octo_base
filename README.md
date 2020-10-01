@@ -4,13 +4,17 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Publishing
 
-1. Update `metadata.json` 
+1. Update `metadata.json`
 2. Update below changelog
 3. Commit
 4. Tag with `git tag v1.x`
 5. Push everything to Github
 
 ## Changelog
+
+### v1.17
+
+- Add SSM agent.
 
 ### v1.16
 
