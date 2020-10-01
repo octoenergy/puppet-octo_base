@@ -78,4 +78,5 @@ class octo_base (
     class {"octo_base::inspector::system":
       require => Exec["update apt repositories"]
     }
+    include "octo_base::amazon_ssm_agent"
 }
