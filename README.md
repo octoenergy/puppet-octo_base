@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.16
+
+- Add AWS inspector.
+
 ### v1.15
 
 - Add region variable to accommodate deployments in other regions.
