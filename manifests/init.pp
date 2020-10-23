@@ -24,6 +24,7 @@ class octo_base (
       "accountsservice",
       "at",
       "policykit-1",
+      "telnet",
     ]
     package { $unnecessary_packages:
       ensure  => "purged",
@@ -73,6 +74,10 @@ class octo_base (
     # Default EC2 monitoring - this requires an IAM role that allows putting new metrics
     class { "octo_base::cloudwatch::system":
         require => Exec["install awscli"]
+    }
+
+    class {"octo_base::cis_hardening::system":
+      require => Exec["update apt repositories"]
     }
 
     class {"octo_base::inspector::system":
