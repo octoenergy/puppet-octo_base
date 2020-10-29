@@ -14,16 +14,11 @@ class octo_base::amazon_ssm_agent {
       require => File['Download SSM agent'],
     }
 
-    file {'/tmp/amazon-ssm-agent.deb':
-      ensure  => absent,
-      require => Package['amazon-ssm-agent'],
-    }
-
     service { 'amazon-ssm-agent':
       ensure   => running,
       enable   => true,
       provider => 'systemd',
-      require => File['/tmp/amazon-ssm-agent.deb']
+      require => Package['amazon-ssm-agent']
     }
 }
 
