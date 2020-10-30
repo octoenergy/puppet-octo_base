@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.18
+
+- CIS hardening
+
 ### v1.17
 
 - Add SSM agent.
