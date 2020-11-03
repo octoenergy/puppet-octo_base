@@ -17,8 +17,8 @@ class octo_base::inspector::system {
   $base = "/tmp/"
 
   file { "AWS inspector gpg key":
-    path   => "$base/inspector.gpg",
-    source => "puppet:///modules/octo_base/inspector/inspector.gpg",
+    path   => "$base/inspector.key",
+    source => "puppet:///modules/octo_base/inspector/inspector.key",
   }
 
   file { "AWS inspector install script":
@@ -34,7 +34,7 @@ class octo_base::inspector::system {
 
   exec { "Add inspector GPG key to keychain":
     cwd       => $base,
-    command   => "/usr/bin/gpg --import inspector.gpg",
+    command   => "/usr/bin/gpg --import inspector.key",
     subscribe => File["AWS inspector gpg key"],
     require   => Package["gnupg"],
   }
