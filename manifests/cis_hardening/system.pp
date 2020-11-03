@@ -4,7 +4,7 @@ class octo_base::cis_hardening::system {
   file_line { "noexec /dev/shm":
     path => "/etc/fstab",
     line =>
-      "none     /run/shm     tmpfs     rw,noexec,nosuid,nodev     0     0",
+      "none     /dev/shm     tmpfs     rw,noexec,nosuid,nodev     0     0",
   }
 
   file { "disable unused filesystems":
@@ -14,10 +14,13 @@ class octo_base::cis_hardening::system {
   }
 
   # 1.5.1 Ensure core dumps are restricted
-  file { "limit core dumps":
-    path   => "/etc/security/limits.d/cores.conf",
+  file { "/etc/security/limits.d/cores.conf":
     source =>
       "puppet:///modules/octo_base/cis_hardening/etc/security/limits.d/cores.conf"
+  }
+  file { "/etc/sysctl.d/limit_cores.conf":
+    source =>
+      "puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/limit_cores.conf"
   }
 
   # 1.5.3 Ensure address space layout randomization (ASLR) is enabled
@@ -140,6 +143,13 @@ class octo_base::cis_hardening::system {
     path  => "/etc/ssh/sshd_config",
     line  => "PermitRootLogin no",
     match => "#PermitRootLogin",
+  }
+
+  # 5.2.9 Ensure SSH PermitEmptyPasswords is disabled
+  file_line { "Ensure SSH PermitEmptyPasswords is disabled":
+    path  => "/etc/ssh/sshd_config",
+    line  => "PermitEmptyPasswords no",
+    match => "#PermitEmptyPasswords",
   }
 
   # 5.2.10 Ensure SSH PermitUserEnvironment is disabled
