@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.19
+
+- Fix broken AWS inspector key
+
 ### v1.18
 
 - CIS hardening
