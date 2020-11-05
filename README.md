@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.21
+
+- Fix for sysctl not loading late enough in the boot sequence
+
 ### v1.20
 
 - CIS Level 1 Server

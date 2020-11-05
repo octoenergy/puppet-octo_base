@@ -18,14 +18,18 @@ class octo_base::cis_hardening::system {
     source =>
       "puppet:///modules/octo_base/cis_hardening/etc/security/limits.d/cores.conf"
   }
-  file { "/etc/sysctl.d/limit_cores.conf":
+  file { "/etc/sysctl.d/60-limit_cores.conf":
     source =>
-      "puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/limit_cores.conf"
+      "puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/60-limit_cores.conf"
+  }
+  cron::job { "reload-sysctl":
+    command => "/bin/sleep 60; /sbin/sysctl --system",
+    special => "reboot",
   }
 
   # 1.5.3 Ensure address space layout randomization (ASLR) is enabled
   file { "ensure ASLR is enabled":
-    path    => "/etc/sysctl.d/aslr.conf",
+    path    => "/etc/sysctl.d/60-aslr.conf",
     content => "kernel.randomize_va_space = 2"
   }
 
@@ -40,9 +44,9 @@ class octo_base::cis_hardening::system {
   # 3.3.1 Ensure IPv6 router advertisements are not accepted
   # 3.3.2 Ensure IPv6 redirects are not accepted
   file { "CIS networking recommendations - features":
-    path   => "/etc/sysctl.d/cis_networking.conf",
+    path   => "/etc/sysctl.d/60-cis_networking.conf",
     source =>
-      "puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/cis_networking.conf"
+      "puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/60-cis_networking.conf"
   }
 
   # 3.4.1 Ensure TCP Wrappers is installed
