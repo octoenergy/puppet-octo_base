@@ -82,7 +82,8 @@ class octo_base::cis_hardening::system {
     "/etc/cron.daily",
     "/etc/cron.weekly",
     "/etc/cron.monthly",
-    "/etc/cron.d",
+    # We omit /etc/cron.d as the application reads from it to determine the cron jobs
+    # that might have stale locks.
   ]:
     mode => "og-rwx"
   }
