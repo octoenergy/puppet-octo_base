@@ -193,7 +193,7 @@ class octo_base::cis_hardening::system {
   }
 
   # 5.4.2 Ensure system accounts are non-login
-  user { ["lxd", "pollinate"]:
+  user { ["lxd", "pollinate", "consul", "celery"]:
     shell => "/usr/sbin/nologin",
   }
 
