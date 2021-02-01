@@ -66,7 +66,7 @@ class octo_base::cis_hardening::system {
 
   # 4.2.4 Ensure permissions on all logfiles are configured
   cron::daily { "CIS_log_file_permissions":
-    command => "/bin/chmod -R g-wx,o-rwx /var/log/*",
+    command => "/bin/chmod -R u+rwX,g+X,g-wx,o-rwx /var/log/*",
   }
 
   # 5.6 Ensure access to the su command is restricted
@@ -193,7 +193,7 @@ class octo_base::cis_hardening::system {
   }
 
   # 5.4.2 Ensure system accounts are non-login
-  user { ["lxd", "pollinate"]:
+  user { ["lxd", "pollinate", "consul", "celery"]:
     shell => "/usr/sbin/nologin",
   }
 
