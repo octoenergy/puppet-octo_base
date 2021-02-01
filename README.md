@@ -12,6 +12,18 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.25
+
+- Actually fix CIS hardening problem with `/var/log/`.
+
+### v1.23, v1.24
+
+- Attempts to fix CIS hardening problem with `/var/log/`.
+
+### v1.22
+
+- Exclude `/etc/cron.d/` from CIS permission tightening
+
 ### v1.22
 
 - Exclude `/etc/cron.d/` from CIS permission tightening
