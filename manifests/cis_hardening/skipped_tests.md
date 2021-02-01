@@ -1,5 +1,23 @@
 # CIS Level 1 - Server
 
+## Notes on our test results
+
+###  5.4.4 Ensure default user umask is 027 or more restrictive
+We are fixing this.
+
+### 5.1.7 Ensure permissions on /etc/cron.d are configured
+We omit /etc/cron.d as the application reads from it to determine the cron jobs
+that might have stale locks.
+
+### 5.4.2 Ensure system accounts are non-login and 6.2.7 Ensure all users' home directories exist
+We are in the process of fixing this.
+
+### 5.2.12 Ensure SSH Idle Timeout Interval is configured
+This has been deliberately left unset on SSH bastions because sometimes
+long running jobs with minimal output are run. We are switching over to
+using AWS Simple Systems Manager for remote access, which will allow us
+to migrate those jobs away from SSH and then enable this setting.
+
 ## Protections designed for physical servers that don't translate to cloud hosted VMs
  * 1.4.1 Ensure permissions on bootloader config are configured
  * 1.4.2 Ensure bootloader password is set

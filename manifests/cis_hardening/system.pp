@@ -200,6 +200,6 @@ class octo_base::cis_hardening::system {
   # 5.4.4 Ensure default user umask is 027 or more restrictive
   file_line { "Ensure default user umask is 027 or more restrictive":
     path => "/etc/profile",
-    line => "umask 022",
+    line => "umask 027",
   }
 }
