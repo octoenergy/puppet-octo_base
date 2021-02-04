@@ -103,6 +103,13 @@ class octo_base::cis_hardening::system {
     mode => "0600",
   }
 
+  # In order to get the SSH file managed by the sftp module to behave we now
+  # make our configuration global
+  file_line { "Ensure SSH global config":
+    path => "/etc/ssh/sshd_config",
+    line => "Match all",
+  }
+
   # 5.2.2 Ensure SSH Protocol is set to 2
   file_line { "Ensure SSH protocol V2":
     path => "/etc/ssh/sshd_config",
