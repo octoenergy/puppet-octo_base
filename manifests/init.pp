@@ -80,8 +80,12 @@ class octo_base (
       require => Exec["update apt repositories"]
     }
 
-    class {"octo_base::inspector::system":
-      require => Exec["update apt repositories"]
+    # Don't install AWS specific features when running in Vagrant
+    if $vagrant == undef {
+        class {"octo_base::inspector::system":
+          require => Exec["update apt repositories"]
+        }
+
+        include "octo_base::amazon_ssm_agent"
     }
-    include "octo_base::amazon_ssm_agent"
 }
