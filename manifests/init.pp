@@ -82,9 +82,12 @@ class octo_base (
 
     # Don't install AWS specific features when running in Vagrant
     if $vagrant == undef {
-        class {"octo_base::inspector::system":
-          require => Exec["update apt repositories"]
-        }
+        # Disable AWS Inspector as signature is failing verification (4th March 2021)
+        # TODO Uncomment this once the install script passes signature verification.
+        #      See https://docs.aws.amazon.com/inspector/latest/userguide/inspector_verify-sig-agent-download-linux.html
+        # class {"octo_base::inspector::system":
+        #    require => Exec["update apt repositories"]
+        #  }
 
         include "octo_base::amazon_ssm_agent"
     }
