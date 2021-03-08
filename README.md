@@ -28,10 +28,6 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 - Exclude `/etc/cron.d/` from CIS permission tightening
 
-### v1.22
-
-- Exclude `/etc/cron.d/` from CIS permission tightening
-
 ### v1.21
 
 - Fix for sysctl not loading late enough in the boot sequence
