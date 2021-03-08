@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.27
+
+- Disable AWS Inspector in Vagrant builds
+
 ### v1.26
 
 - Set default umask to 027
@@ -23,10 +27,6 @@ Puppet module providing common functionality for Octopus Energy machines.
 ### v1.23, v1.24
 
 - Attempts to fix CIS hardening problem with `/var/log/`.
-
-### v1.22
-
-- Exclude `/etc/cron.d/` from CIS permission tightening
 
 ### v1.22
 
