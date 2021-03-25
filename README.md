@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.28
+
+- Batch Cloudwatch PutMetricData to a single AWSCLI call for `collect-system-metrics.sh`
+
 ### v1.27
 
 - Disable AWS Inspector in Vagrant builds
