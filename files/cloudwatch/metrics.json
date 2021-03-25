@@ -1,0 +1,122 @@
+[
+    {
+        "MetricName": "CPUUtilization",
+        "Dimensions": [
+            {
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $CPU,
+        "Unit": "Percent"
+    },
+    {
+        "MetricName": "SystemLoad",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            },
+            {
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $LOAD,
+        "Unit": "None"
+    },
+    {
+        "MetricName": "MemoryUsed",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $MEMORY_USED,
+        "Unit": "Megabytes"
+    },
+    {
+        "MetricName": "MemoryUsedPercentage",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            },
+            {
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $MEMORY_USED_PERCENTAGE,
+        "Unit": "Percent"
+    },
+    {
+        "MetricName": "MemoryFree",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $MEMORY_FREE,
+        "Unit": "Megabytes"
+    },
+    {
+        "MetricName": "SwapUsed",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $SWAP_USED,
+        "Unit": "Megabytes"
+    },
+    {
+        "MetricName": "DiskUsedPercentage",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            },
+            {
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $DISK_USED_PERCENTAGE,
+        "Unit": "Percent"
+    },
+    {
+        "MetricName": "DiskUsed",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $DISK_USED,
+        "Unit": "Bytes"
+    },
+    {
+        "MetricName": "DiskAvailable",
+        "Dimensions": [
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $DISK_AVAILABLE,
+        "Unit": "Bytes"
+    }
+]
