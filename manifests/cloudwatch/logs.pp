@@ -19,6 +19,35 @@ class octo_base::cloudwatch::logs (
     $setup_script = "/opt/awslogs-agent-setup.py"
     $config_file = "/etc/awslogs.conf"
 
+    # Combine passed in log files with standard log files for Ubuntu hosts.
+    $core_log_files = [
+        {
+            "log_group_name" => "system.auth",
+            "path" => "/var/log/auth.log",
+            # Eg Mar 15 15:03:43
+            "datetime_format" => "%b %d %H:%M:%S",
+        },
+        {
+            "log_group_name" => "system.syslog",
+            "path" => "/var/log/syslog",
+            # Eg Mar 15 15:03:43
+            "datetime_format" => "%b %d %H:%M:%S",
+        },
+        {
+            "log_group_name" => "system.kern",
+            "path" => "/var/log/kern.log",
+            # Eg Mar 15 15:03:43
+            "datetime_format" => "%b %d %H:%M:%S",
+        },
+        {
+            "log_group_name" => "system.dpkg",
+            "path" => "/var/log/dpkg.log",
+            # Eg 2021-03-17 15:53:34
+            "datetime_format" => "%Y-%m-%d %H:%M:%S"
+        },
+    ]
+    $all_log_files = concat($core_log_files, $log_files)
+
     # Create the bootstrapping config file (the $aws_logs var is iterated over in the template)
     file { "AWS cloudwatch config":
         path => $config_file,
