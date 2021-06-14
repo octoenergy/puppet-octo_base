@@ -5,9 +5,12 @@
 ###  5.4.4 Ensure default user umask is 027 or more restrictive
 We are fixing this.
 
-### 5.1.7 Ensure permissions on /etc/cron.d are configured
-We omit /etc/cron.d as the application reads from it to determine the cron jobs
-that might have stale locks.
+## Application needs access to /etc/cron.d
+* 5.1.7 Ensure permissions on /etc/cron.d are configured
+
+We omit /etc/cron.d from the permission lock down because the application reads
+from it to determine the cron jobs that might have stale locks. It should not
+be modifiable by the application.
 
 ### 5.4.2 Ensure system accounts are non-login and 6.2.7 Ensure all users' home directories exist
 We are in the process of fixing this.
@@ -56,12 +59,12 @@ to migrate those jobs away from SSH and then enable this setting.
 # Level 2 - Server
 ## 1.1.x Ensure separate partition exists for
 
-* /tmp
-* /var
-* /var/tmp
-* /var/log
-* /var/log/audit
-* /home
+* 1.1.2 Ensure separate partition exists for /tmp
+* 1.1.6 Ensure separate partition exists for /var/tmp
+* 1.1.10 Ensure separate partition exists for /var/log
+* 1.1.11 Ensure separate partition exists for /var/log/audit
+* 1.1.12 Ensure separate partition exists for /home
+* 1.1.5 Ensure separate partition exists for /var
 
 ### Rationale
 Having separate partitions is intended to guard against two classes of
