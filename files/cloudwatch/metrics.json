@@ -15,10 +15,6 @@
         "MetricName": "SystemLoad",
         "Dimensions": [
             {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
-            },
-            {
                 "Name": "InstanceName",
                 "Value": $INSTANCE_NAME
             }
@@ -31,8 +27,8 @@
         "MetricName": "MemoryUsed",
         "Dimensions": [
             {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
             }
         ],
         "Timestamp": $TIMESTAMP,
@@ -42,10 +38,6 @@
     {
         "MetricName": "MemoryUsedPercentage",
         "Dimensions": [
-            {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
-            },
             {
                 "Name": "InstanceName",
                 "Value": $INSTANCE_NAME
@@ -59,8 +51,8 @@
         "MetricName": "MemoryFree",
         "Dimensions": [
             {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
             }
         ],
         "Timestamp": $TIMESTAMP,
@@ -71,8 +63,8 @@
         "MetricName": "SwapUsed",
         "Dimensions": [
             {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
             }
         ],
         "Timestamp": $TIMESTAMP,
@@ -82,10 +74,6 @@
     {
         "MetricName": "DiskUsedPercentage",
         "Dimensions": [
-            {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
-            },
             {
                 "Name": "InstanceName",
                 "Value": $INSTANCE_NAME
@@ -99,8 +87,8 @@
         "MetricName": "DiskUsed",
         "Dimensions": [
             {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
             }
         ],
         "Timestamp": $TIMESTAMP,
@@ -111,8 +99,8 @@
         "MetricName": "DiskAvailable",
         "Dimensions": [
             {
-                "Name": "InstanceId",
-                "Value": $INSTANCE_ID
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
             }
         ],
         "Timestamp": $TIMESTAMP,
