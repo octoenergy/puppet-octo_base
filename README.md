@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.30
+
+- Fix bug with how dimensions are associated with metrics
+
 ### v1.29
 
 - Forward system log files to Cloudwatch
