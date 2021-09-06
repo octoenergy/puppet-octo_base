@@ -1,5 +1,6 @@
 class octo_base (
     $awscli_version = "1.16.119",
+    $aws_inspector = true,
 ) {
     # Validate params
     if !$awscli_version {
@@ -82,8 +83,11 @@ class octo_base (
 
     # Don't install AWS specific features when running in Vagrant
     if $vagrant == undef {
-        class {"octo_base::inspector::system":
-          require => Exec["update apt repositories"]
+
+        if $aws_inspector == true {
+            class {"octo_base::inspector::system":
+            require => Exec["update apt repositories"]
+            }
         }
 
         include "octo_base::amazon_ssm_agent"
