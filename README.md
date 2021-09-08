@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.31
+
+- Allow AWS Inspector to be optional
+
 ### v1.30
 
 - Fix bug with how dimensions are associated with metrics
