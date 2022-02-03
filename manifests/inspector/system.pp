@@ -1,15 +1,30 @@
 class octo_base::inspector::system {
 
   # Install system packages
-  $system_packages = [
-    "gnupg",
-    "libcurl4",
-    "libgcc1",
-    "libc6",
-    "libstdc++6",
-    "libssl1.0.0",
-    "libpcap0.8",
-  ]
+
+  # Ensure the appropriate version of libssl is installed.
+  if $operatingsystemrelease == '18.04' {
+    $system_packages = [
+      "gnupg",
+      "libcurl4",
+      "libgcc1",
+      "libc6",
+      "libstdc++6",
+      "libpcap0.8",
+      "libssl1.0.0",
+    ]
+  } elsif $operatingsystemrelease == '20.04' {
+    $system_packages = [
+      "gnupg",
+      "libcurl4",
+      "libgcc1",
+      "libc6",
+      "libstdc++6",
+      "libpcap0.8",
+      "libssl1.1",
+    ]
+  }
+
   package { $system_packages:
     ensure => "installed",
   }
