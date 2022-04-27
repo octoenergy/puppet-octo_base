@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.33
+
+- Add another DiskUsedPercentage Cloudwatch metric with new dimensions
+
 ### v1.32
 
 - Ensure AWS Inspector installs on Ubuntu 20.04

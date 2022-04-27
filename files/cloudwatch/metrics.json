@@ -84,6 +84,22 @@
         "Unit": "Percent"
     },
     {
+        "MetricName": "DiskUsedPercentage",
+        "Dimensions": [
+            {
+                "Name": "InstanceName",
+                "Value": $INSTANCE_NAME
+            },
+            {
+                "Name": "InstanceId",
+                "Value": $INSTANCE_ID
+            }
+        ],
+        "Timestamp": $TIMESTAMP,
+        "Value": $DISK_USED_PERCENTAGE,
+        "Unit": "Percent"
+    },
+    {
         "MetricName": "DiskUsed",
         "Dimensions": [
             {
