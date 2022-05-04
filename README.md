@@ -12,6 +12,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 
 ## Changelog
 
+### v1.33
+
+- Add yq.
+
 ### v1.32
 
 - Ensure AWS Inspector installs on Ubuntu 20.04

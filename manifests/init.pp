@@ -1,10 +1,15 @@
 class octo_base (
     $awscli_version = "1.16.119",
+    $yq_version = "4.25.1",
     $aws_inspector = true,
 ) {
     # Validate params
     if !$awscli_version {
         fail("A valid AWSCLI version must be set")
+    }
+
+    if !$yq_version {
+        fail("A valid YQ version must be set")
     }
 
     # Update repos
@@ -70,6 +75,21 @@ class octo_base (
     package { "jq":
         ensure => installed,
         require => Exec["upgrade installed packages"],
+    }
+
+    # YQ is used to modify YAML config files post deployment
+    exec { "install yq":
+        command => "/usr/bin/wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v$yq_version/yq_linux_amd64",
+        user => "root",
+        group => "root",
+    }
+
+    file { "/usr/local/bin/yq":
+        ensure => file,
+        owner => "root",
+        group => "root",
+        mode => "0755",
+        require => Exec["install yq"],
     }
 
     # Default EC2 monitoring - this requires an IAM role that allows putting new metrics
