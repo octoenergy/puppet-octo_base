@@ -1,0 +1,127 @@
+    {
+      "agent": {
+        "metrics_collection_interval": 60,
+        "logfile": "/var/log/amazon-cloudwatch-agent.log",
+        "run_as_user": "cwagent"
+      },
+      "metrics": {
+        "metrics_collected": {
+          "cpu": {
+            "resources": [
+              "*"
+            ],
+            "measurement": [
+              {"name": "cpu_usage_idle", "rename": "CPU_USAGE_IDLE", "unit": "Percent"},
+              {"name": "cpu_usage_nice", "rename": "CPU_USAGE_NICE", "unit": "Percent"},
+              {"name": "cpu_usage_guest", "rename": "CPU_USAGE_GUEST", "unit": "Percent"}
+            ],
+            "totalcpu": false,
+            "metrics_collection_interval": 60
+          },
+          "disk": {
+            "resources": [
+              "*"
+            ],
+            "measurement": [
+              {"name": "free", "rename": "DISK_FREE_GB", "unit": "Gigabytes"},
+              {"name": "total", "rename": "DISK_TOTAL_GB", "unit": "Gigabytes"},
+              {"name": "used_percent", "rename": "DISK_USED_PERCENT"},
+              {"name": "inodes_free", "ranem": "FREE_INODES"},
+              {"name": "inodes_total", "rename": "TOTAL_INODES"},
+              {"name": "inodes_used", "rename": "USED_INODES"}
+            ],
+             "ignore_file_system_types": [
+              "tmpfs", "devtmpfs"
+            ],
+            "metrics_collection_interval": 60
+          },
+          "diskio": {
+            "resources": [
+              "*"
+            ],
+            "measurement": [
+              {"name": "reads", "rename": "IO_READS"},
+              {"name": "writes", "rename": "IO_WRITES"},
+              {"name": "read_time", "rename": "IO_READ_TIME"},
+              {"name": "write_time", "rename": "IO_WRITE_TIME"},
+              {"name": "io_time", "rename": "IO_TIME"}
+            ],
+            "metrics_collection_interval": 60
+          },
+          "swap": {
+            "measurement": [
+              {"name": "swap_used", "rename": "SWAP_USED"},
+              {"name": "swap_free", "rename": "SWAP_FREE"},
+              {"name": "swap_used_percent", "rename": "SWAP_USED_PERCENT"}
+            ]
+          },
+          "mem": {
+            "measurement": [
+              {"name": "mem_used", "rename": "MEM_USED"},
+              {"name": "mem_cached", "rename": "MEM_CACHED"},
+              {"name": "mem_total", "rename": "MEM_TOTAL"}
+            ],
+            "metrics_collection_interval": 30
+          },
+          "net": {
+            "resources": [
+              "*"
+            ],
+            "measurement": [
+              {"name": "bytes_sent", "rename": "BYTES_SENT"},
+              {"name": "bytes_recv", "rename": "BYTES_RECEIVED"},
+              {"name": "drop_in", "rename": "BYTES_DROPPED_IN"},
+              {"name": "drop_out", "rename": "BYTES_DROPPED_OUT"}
+            ]
+          },
+          "processes": {
+            "measurement": [
+              {"name": "running", "rename": "NUM_PROC_RUNNING"},
+              {"name": "sleeping", "rename": "NUM_PROC_SLEEPING"},
+              {"name": "dead", "rename": "NUM_PROC_DEAD"}
+            ]
+          },
+          "procstat": [
+            {
+              "pattern": "celery",
+              "measurement": [
+                "cpu_time",
+                "cpu_time_system",
+                "cpu_time_user"
+              ]
+            }
+          ]
+        },
+        "append_dimensions": {
+          "ImageId": "${aws:ImageId}",
+          "InstanceId": "${aws:InstanceId}",
+          "InstanceType": "${aws:InstanceType}",
+          "AutoScalingGroupName": "${aws:AutoScalingGroupName}"
+        },
+        "aggregation_dimensions" : [["AutoScalingGroupName"], ["ImageId"], ["InstanceId", "InstanceType"], []],
+        "force_flush_interval" : 30
+      },
+      "logs": {
+        "logs_collected": {
+          "files": {
+            "collect_list": [
+              <% @all_log_files.each_with_index do |item, index| -%>
+              {
+                "file_path": "<%= item['path'] %>",
+                "log_group_name": "<%= item['log_group_name'] %>",
+                "timezone": "UTC",
+                "timestamp_format": "<%= item['datetime_format'] %>"
+              <% if index == (scope['number_of_log_files'] - 1) -%>
+              }
+              <% end -%>
+              <% if index < (scope['number_of_log_files'] - 1) -%>
+              },
+              <% end -%>
+              <% end -%>
+            ]
+          }
+        },
+        "log_stream_name": "{local_hostname}",
+        "force_flush_interval" : 60
+      }
+    }
