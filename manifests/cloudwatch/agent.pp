@@ -1,5 +1,6 @@
 class octo_base::cloudwatch::agent (
-    $log_files
+    $log_files,
+    $instance_name
 ) {
     $install_download_link = 'https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb'
     $signature_download_link = 'https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb.sig'
@@ -38,6 +39,7 @@ class octo_base::cloudwatch::agent (
     ]
     $all_log_files = concat($core_log_files, $log_files)
     $number_of_log_files = length($all_log_files)
+    $instance = $instance_name
 
     $config_file = '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json'
 
