@@ -40,8 +40,8 @@ class octo_base::cloudwatch::logs (
             "datetime_format" => "%b %d %H:%M:%S",
         },
         {
-            "log_group_name" => "system.dpkg",
-            "path" => "/var/log/dpkg.log",
+            "log_group_name" => "system.apt",
+            "path" => "/var/log/apt/history.log",
             # Eg 2021-03-17 15:53:34
             "datetime_format" => "%Y-%m-%d %H:%M:%S"
         },
