@@ -11,6 +11,17 @@ Puppet module providing common functionality for Octopus Energy machines.
 5. Push everything to Github
 
 ## Changelog
+### v1.36
+- Change CW Agent logfile location
+- Change dpkg.log to apt logfile
+- Add `omit hostname` and aggregate based on `InstanceName`
+### v1.35
+- Fix namespace and CW dimensions
+
+### v1.34
+
+- Remove awslogs and replace it with CW Agent
+
 
 ### v1.33
 
