@@ -2,7 +2,8 @@
       "agent": {
         "metrics_collection_interval": 60,
         "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
-        "run_as_user": "cwagent"
+        "run_as_user": "cwagent",
+        "omit_hostname": true
       },
       "metrics": {
         "namespace": "EC2/Custom",
@@ -111,10 +112,7 @@
             }
           ]
         },
-        "append_dimensions": {
-          "InstanceId": "${aws:InstanceId}",
-          "AutoScalingGroupName": "${aws:AutoScalingGroupName}"
-        },
+        "aggregation_dimensions": [["InstanceName"]]
         "force_flush_interval" : 30
       },
       "logs": {
