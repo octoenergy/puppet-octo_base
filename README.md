@@ -11,6 +11,8 @@ Puppet module providing common functionality for Octopus Energy machines.
 5. Push everything to Github
 
 ## Changelog
+### v1.37
+- Fixed missing comma
 ### v1.36
 - Change CW Agent logfile location
 - Change dpkg.log to apt logfile
