@@ -11,6 +11,10 @@ Puppet module providing common functionality for Octopus Energy machines.
 5. Push everything to Github
 
 ## Changelog
+### v1.39
+- Fix broken CW agent config
+### v1.38
+- Switch CW agent to run as root
 ### v1.37
 - Fixed missing comma
 ### v1.36
