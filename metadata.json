@@ -1,6 +1,6 @@
 {
     "name": "octoenergy-octo_base",
-    "version": "1.37",
+    "version": "1.39",
     "author": "Octopus Energy",
     "license": "BSD",
     "summary": "Base machine functionality for Octopus Energy",
