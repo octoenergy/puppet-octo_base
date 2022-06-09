@@ -2,13 +2,19 @@
 
 Puppet module providing common functionality for Octopus Energy machines.
 
-## Publishing
+## Making changes
 
-1. Update `metadata.json`
-2. Update below changelog
-3. Commit
-4. Tag with `git tag v1.x`
-5. Push everything to Github
+After any change made to the base manifest, there's three things that need to be done to push the change to production.
+
+0. The change needs to be committed and pushed to the `octo_base` repo.
+1. The [version number](https://github.com/octoenergy/puppet-octo_base/blob/master/metadata.json#L3) in the `metadata.json` file needs to be incremented.
+2. The octo_base repository needs to have a new release created. Once your change has been merged, including the version number change, you can create a release [here](https://github.com/octoenergy/puppet-octo_base/releases/new).
+
+   The tag should match the version you specified in the `metadata.json` file, _including_ the `v.`, so if you incremented the version to `v1.38` you need to tag it as `v1.38`. The same applies to the release title. The assets are generated automatically, so no need to zip / upload anything.
+
+3. In the `kraken-core` repo, you need to change the version for the `octoenergy-octo_base` module to match the version specified above. There's two places this change is made:
+   In the [Puppetfile](https://github.com/octoenergy/kraken-core/blob/master/packer/puppet/vendor/Puppetfile#L8), only the version line needs to change.
+   In the [Puppetfile.lock](https://github.com/octoenergy/kraken-core/blob/master/packer/puppet/vendor/Puppetfile.lock#L73), the version number _and_ the SHA need to change. You can get the SHA of the release on the [releases page](https://github.com/octoenergy/puppet-octo_base/releases) of the octo_base repo.
 
 ## Changelog
 ### v1.39
