@@ -17,23 +17,36 @@ After any change made to the base manifest, there's three things that need to be
    In the [Puppetfile.lock](https://github.com/octoenergy/kraken-core/blob/master/packer/puppet/vendor/Puppetfile.lock#L73), the version number _and_ the SHA need to change. You can get the SHA of the release on the [releases page](https://github.com/octoenergy/puppet-octo_base/releases) of the octo_base repo.
 
 ## Changelog
+
+### v1.40
+
+- Ensure AWS Inspector installs on Ubuntu 22.04
+
 ### v1.39
+
 - Fix broken CW agent config
+
 ### v1.38
+
 - Switch CW agent to run as root
+
 ### v1.37
+
 - Fixed missing comma
+
 ### v1.36
+
 - Change CW Agent logfile location
 - Change dpkg.log to apt logfile
 - Add `omit hostname` and aggregate based on `InstanceName`
+
 ### v1.35
+
 - Fix namespace and CW dimensions
 
 ### v1.34
 
 - Remove awslogs and replace it with CW Agent
-
 
 ### v1.33
 
