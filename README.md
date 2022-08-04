@@ -18,6 +18,11 @@ After any change made to the base manifest, there's three things that need to be
 
 ## Changelog
 
+### v1.41
+
+- Update awscli from v1.16.119 to v1.25.46
+- Update libssl from v1.1 to v3
+
 ### v1.40
 
 - Ensure AWS Inspector installs on Ubuntu 22.04
