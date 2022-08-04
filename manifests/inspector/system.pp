@@ -13,7 +13,7 @@ class octo_base::inspector::system {
       "libpcap0.8",
       "libssl1.0.0",
     ]
-  } elsif $operatingsystemrelease in ['20.04', '22.04'] {
+  } elsif $operatingsystemrelease == '20.04' {
     $system_packages = [
       "gnupg",
       "libcurl4",
@@ -22,6 +22,16 @@ class octo_base::inspector::system {
       "libstdc++6",
       "libpcap0.8",
       "libssl1.1",
+    ]
+  } elsif $operatingsystemrelease == '22.04' {
+    $system_packages = [
+      "gnupg",
+      "libcurl4",
+      "libgcc1",
+      "libc6",
+      "libstdc++6",
+      "libpcap0.8",
+      "libssl3",
     ]
   }
 
