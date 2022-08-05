@@ -18,6 +18,10 @@ After any change made to the base manifest, there's three things that need to be
 
 ## Changelog
 
+### v1.42
+
+- Fix pip install of awscli
+
 ### v1.41
 
 - Update awscli from v1.16.119 to v1.25.46
