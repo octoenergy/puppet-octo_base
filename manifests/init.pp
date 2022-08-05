@@ -58,7 +58,7 @@ class octo_base (
         require => Exec["update apt repositories"],
     }
     exec { "install awscli":
-        command => "pip3 install --system 'awscli==$awscli_version'",
+        command => "pip3 install 'awscli==$awscli_version'",
         path => ["/bin/", "/sbin/", "/usr/bin/", "/usr/bin/local/"],
         user => "root",
         group => "root",
