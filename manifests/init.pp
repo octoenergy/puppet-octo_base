@@ -92,4 +92,11 @@ class octo_base (
 
         include "octo_base::amazon_ssm_agent"
     }
+
+    # Cron to lower (remove) the possibility of OOM Killer killing the SSM processes, which locks us out in high memory events
+    cron { 'ssm_oom':
+      command => 'echo \'-1000\' > /proc/$(pidof ssm-agent-worker)/oom_score_adj; echo \'-1000\' > /proc/$(pidof amazon-ssm-agent)/oom_score_adj; echo \'-1000\' > /proc/$(pidof ssm-session-worker)/oom_score_adj',
+      user => 'root',
+      special => 'reboot',
+    }
 }
