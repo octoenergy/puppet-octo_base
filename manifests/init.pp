@@ -34,7 +34,7 @@ class octo_base (
 
     # Apply security patches for installed packages
     exec { "upgrade installed packages":
-        command => "time -p /usr/bin/apt-get -y upgrade --fix-missing --fix-broken --autoremove",
+        command => "time -p /usr/bin/apt-get -y dist-upgrade --fix-missing --fix-broken --autoremove",
         # Use a longer timeout as the default of 300 seconds fails more often than
         # we would like.
         timeout => 600,
