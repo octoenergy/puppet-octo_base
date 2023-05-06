@@ -1,2 +1,3 @@
-# JetBrains (PyCharm) IDE
 .idea
+.bundle
+Gemfile.lock

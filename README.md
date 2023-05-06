@@ -18,6 +18,11 @@ After any change made to the base manifest, there's three things that need to be
 
 ## Changelog
 
+### v1.44
+
+- Add puppet tooling
+- $vagrant must be set to 1 to work
+
 ### v1.42
 
 - Fix pip install of awscli

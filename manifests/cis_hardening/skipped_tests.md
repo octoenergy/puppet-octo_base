@@ -105,5 +105,3 @@ can't limit that users actions.
 
 ## Only login is via SSH, which has equivalent restrictions in place
  * 5.4.5 Ensure default user shell timeout is 900 seconds or less
-
-
