@@ -41,6 +41,7 @@ class octo_base::inspector::system {
   $base = '/tmp/'
 
   file { 'AWS inspector gpg key':
+    ensure => file,
     path   => "${base}/inspector.key",
     source => 'puppet:///modules/octo_base/inspector/inspector.key',
   }

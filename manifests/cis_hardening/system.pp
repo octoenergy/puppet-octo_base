@@ -2,24 +2,23 @@ class octo_base::cis_hardening::system {
   # CIS Level 1 - Server
   file_line { 'noexec /dev/shm':
     path => '/etc/fstab',
-    line =>
-      'none     /dev/shm     tmpfs     rw,noexec,nosuid,nodev     0     0',
+    line => 'none     /dev/shm     tmpfs     rw,noexec,nosuid,nodev     0     0',
   }
 
   file { 'disable unused filesystems':
+    ensure => file,
     path   => '/etc/modprobe.d/unused_fs.conf',
-    source =>
-      'puppet:///modules/octo_base/cis_hardening/etc/modprobe.d/unused_fs.conf',
+    source => 'puppet:///modules/octo_base/cis_hardening/etc/modprobe.d/unused_fs.conf',
   }
 
   # 1.5.1 Ensure core dumps are restricted
   file { '/etc/security/limits.d/cores.conf':
-    source =>
-      'puppet:///modules/octo_base/cis_hardening/etc/security/limits.d/cores.conf',
+    ensure => file,
+    source => 'puppet:///modules/octo_base/cis_hardening/etc/security/limits.d/cores.conf',
   }
   file { '/etc/sysctl.d/60-limit_cores.conf':
-    source =>
-      'puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/60-limit_cores.conf',
+    ensure => file,
+    source => 'puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/60-limit_cores.conf',
   }
   cron::job { 'reload-sysctl':
     command => '/bin/sleep 60; /sbin/sysctl --system',
@@ -28,6 +27,7 @@ class octo_base::cis_hardening::system {
 
   # 1.5.3 Ensure address space layout randomization (ASLR) is enabled
   file { 'ensure ASLR is enabled':
+    ensure  => file,
     path    => '/etc/sysctl.d/60-aslr.conf',
     content => 'kernel.randomize_va_space = 2',
   }
@@ -43,9 +43,9 @@ class octo_base::cis_hardening::system {
   # 3.3.1 Ensure IPv6 router advertisements are not accepted
   # 3.3.2 Ensure IPv6 redirects are not accepted
   file { 'CIS networking recommendations - features':
+    ensure => file,
     path   => '/etc/sysctl.d/60-cis_networking.conf',
-    source =>
-      'puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/60-cis_networking.conf',
+    source => 'puppet:///modules/octo_base/cis_hardening/etc/sysctl.d/60-cis_networking.conf',
   }
 
   # 3.4.1 Ensure TCP Wrappers is installed
@@ -58,9 +58,9 @@ class octo_base::cis_hardening::system {
   # 3.5.3 Ensure RDS is disabled
   # 3.5.4 Ensure TIPC is disabled
   file { 'CIS networking recommendations - protocols':
+    ensure => file,
     path   => '/etc/modprobe.d/unused_network_protocols.conf',
-    source =>
-      'puppet:///modules/octo_base/cis_hardening/etc/modprobe.d/unused_network_protocols.conf',
+    source => 'puppet:///modules/octo_base/cis_hardening/etc/modprobe.d/unused_network_protocols.conf',
   }
 
   # 4.2.4 Ensure permissions on all logfiles are configured
@@ -174,7 +174,7 @@ class octo_base::cis_hardening::system {
   # 5.2.11 Ensure only approved MAC algorithms are used
   file_line { 'Ensure only approved MAC algorithms are used':
     path => '/etc/ssh/sshd_config',
-    line =>
+    line => 
       'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
     ,
   }
