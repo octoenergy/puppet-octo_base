@@ -17,16 +17,28 @@ class octo_base (
     logoutput => on_failure,
   }
 
-  # Remove unnecessary packages for Ubuntu 18:04 (see https://peteris.rocks/blog/can-you-kill-it/)
-  $unnecessary_packages = [
-    'snapd',
-    'lvm2',
-    'lxcfs',
-    'accountsservice',
-    'at',
-    'policykit-1',
-    'telnet',
-  ]
+  if $facts['os']['distro']['release']['full'] == '18.04' {
+    # Remove unnecessary packages for Ubuntu 18:04 (see https://peteris.rocks/blog/can-you-kill-it/)
+    $unnecessary_packages = [
+      'snapd',
+      'lvm2',
+      'lxcfs',
+      'accountsservice',
+      'at',
+      'policykit-1',
+      'telnet',
+    ]
+  } else {
+    $unnecessary_packages = [
+      'lvm2',
+      'lxcfs',
+      'accountsservice',
+      'at',
+      'policykit-1',
+      'telnet',
+    ]
+  } 
+
   package { $unnecessary_packages:
     ensure  => 'purged',
     require => Exec['update apt repositories'],
