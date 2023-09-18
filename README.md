@@ -18,6 +18,10 @@ After any change made to the base manifest, there's three things that need to be
 
 ## Changelog
 
+### v1.45
+
+- Update unnecessary package list to not remove snapd on newer ubuntu images
+
 ### v1.44
 
 - Add puppet tooling
