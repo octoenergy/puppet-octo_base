@@ -1,6 +1,7 @@
 class octo_base (
   $awscli_version = '1.25.46',
   $aws_inspector = true,
+  $amazon_ssm_agent = true,
 ) {
   # Validate params
   if !$awscli_version {
@@ -101,7 +102,9 @@ class octo_base (
       }
     }
 
-    include 'octo_base::amazon_ssm_agent'
+    if $amazon_ssm_agent == true {
+      include 'octo_base::amazon_ssm_agent'
+    }
   }
 
   # lint:ignore:140chars
